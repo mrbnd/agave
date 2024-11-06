@@ -869,6 +869,17 @@ pub mod reenable_sbpf_v1_execution {
     solana_pubkey::declare_id!("TestFeature21111111111111111111111111111111");
 }
 
+<<<<<<< HEAD
+=======
+pub mod remove_accounts_executable_flag_checks {
+    solana_pubkey::declare_id!("FfgtauHUWKeXTzjXkua9Px4tNGBFHKZ9WaigM5VbbzFx");
+}
+
+pub mod lift_cpi_caller_restriction {
+    solana_pubkey::declare_id!("HcW8ZjBezYYgvcbxNJwqv1t484Y2556qJsfNDWvJGZRH");
+}
+
+>>>>>>> 228d3b3427 (Feature - Lift CPI Caller Restriction (#2202))
 lazy_static! {
     /// Map of feature identifiers to user-visible description
     pub static ref FEATURE_NAMES: HashMap<Pubkey, &'static str> = [
@@ -1081,6 +1092,11 @@ lazy_static! {
         (partitioned_epoch_rewards_superfeature::id(), "replaces enable_partitioned_epoch_reward to enable partitioned rewards at epoch boundary SIMD-0118"),
         (disable_sbpf_v1_execution::id(), "Disables execution of SBPFv1 programs"),
         (reenable_sbpf_v1_execution::id(), "Re-enables execution of SBPFv1 programs"),
+<<<<<<< HEAD
+=======
+        (remove_accounts_executable_flag_checks::id(), "Remove checks of accounts is_executable flag SIMD-0162"),
+        (lift_cpi_caller_restriction::id(), "Lift the restriction in CPI that the caller must have the callee as an instruction account #2202"),
+>>>>>>> 228d3b3427 (Feature - Lift CPI Caller Restriction (#2202))
         /*************** ADD NEW FEATURES HERE ***************/
     ]
     .iter()
