@@ -781,6 +781,13 @@ fn main() {
         .takes_value(true)
         .multiple(true)
         .help("Specify the configuration file for the Geyser plugin.");
+    
+    let log_messages_bytes_limit_arg = Arg::with_name("log_messages_bytes_limit")
+        .long("log-messages-bytes-limit")
+        .takes_value(true)
+        .validator(is_parsable::<usize>)
+        .value_name("BYTES")
+        .help("Maximum number of bytes written to the program log before truncation");
 
     let accounts_data_encoding_arg = Arg::with_name("encoding")
         .long("encoding")
@@ -1000,6 +1007,7 @@ fn main() {
                 .arg(&max_genesis_archive_unpacked_size_arg)
                 .arg(&debug_key_arg)
                 .arg(&geyser_plugin_args)
+                .arg(&log_messages_bytes_limit_arg)
                 .arg(&use_snapshot_archives_at_startup)
                 .arg(
                     Arg::with_name("skip_poh_verify")
@@ -1021,6 +1029,16 @@ fn main() {
                         .long("enable-rpc-transaction-history")
                         .takes_value(false)
                         .help("Store transaction info for processed slots into local ledger"),
+                )
+                .arg(
+                    Arg::with_name("enable_extended_tx_metadata_storage")
+                        .long("enable-extended-tx-metadata-storage")
+                        .requires("enable_rpc_transaction_history")
+                        .takes_value(false)
+                        .help(
+                            "Include CPI inner instructions, logs, and return data in the historical \
+                             transaction info stored",
+                        ),
                 )
                 .arg(
                     Arg::with_name("run_final_hash_calc")
@@ -1136,6 +1154,7 @@ fn main() {
                 .arg(&maximum_full_snapshot_archives_to_retain)
                 .arg(&maximum_incremental_snapshot_archives_to_retain)
                 .arg(&geyser_plugin_args)
+                .arg(&log_messages_bytes_limit_arg)
                 .arg(&use_snapshot_archives_at_startup)
                 .arg(
                     Arg::with_name("snapshot_slot")
@@ -1342,6 +1361,7 @@ fn main() {
                 .arg(&halt_at_slot_arg)
                 .arg(&hard_forks_arg)
                 .arg(&geyser_plugin_args)
+                .arg(&log_messages_bytes_limit_arg)
                 .arg(&accounts_data_encoding_arg)
                 .arg(&use_snapshot_archives_at_startup)
                 .arg(
@@ -1383,6 +1403,7 @@ fn main() {
                 .arg(&hard_forks_arg)
                 .arg(&max_genesis_archive_unpacked_size_arg)
                 .arg(&geyser_plugin_args)
+                .arg(&log_messages_bytes_limit_arg)
                 .arg(&use_snapshot_archives_at_startup)
                 .arg(
                     Arg::with_name("warp_epoch")
